@@ -45,7 +45,10 @@ module.exports = async (req, res, db) => {
         if (error) return res.status(400).json(error.details[0].message);
 
         const student = await enrollsColl.findOne({ email });
-        if (student) return res.status(400).json("student already exists");
+        if (student)
+            return res
+                .status(400)
+                .json({ status: "failure", msg: "student already exists" });
 
         //storing the enrollment in the enrollments collection
         await enrollsColl.insertOne(enrollForm);
@@ -63,10 +66,14 @@ module.exports = async (req, res, db) => {
         if (relationsMails)
             await relationsMailsColl.insertOne({ id: enrollForm.id, email });
 
-        res.json("enrollment has been submitted");
+        res.json({
+            status: "success",
+            msg: "your enrollment has been successfully submitted",
+        });
     } catch (err) {
-        res.status(400).json(
-            "there was an error while submitting your enrollment"
-        );
+        res.status(400).json({
+            status: "failure",
+            msg: "there has been an error while submitting your enrollment",
+        });
     }
 };

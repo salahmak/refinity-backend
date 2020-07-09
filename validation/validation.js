@@ -18,6 +18,17 @@ const validateEnroll = (data) => {
     return enrollSchema.validate(data);
 };
 
+const validateContact = (data) => {
+    const contactSchema = Joi.object({
+        name: Joi.string().required(),
+        email: Joi.string().email().required(),
+        topic: Joi.string().required(),
+        body: Joi.string().required(),
+    });
+    return contactSchema.validate(data);
+};
+
 module.exports = {
     validateEnroll,
+    validateContact,
 };
