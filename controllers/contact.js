@@ -1,8 +1,9 @@
 const { nanoid } = require("nanoid");
 const { validateContact } = require("../validation/validation.js");
 const sendContactEmail = require("../nodemailer/contactMail.js");
+const Contact = require("../models/contact/contactForm.js");
 
-module.exports = async (req, res, db) => {
+module.exports = async (req, res) => {
     const { name, email, topic, body } = req.body;
 
     const message = {
@@ -13,8 +14,6 @@ module.exports = async (req, res, db) => {
         body,
     };
 
-    const contactColl = db.collection("contact");
-
     try {
         const { error } = validateContact(req.body);
         if (error)
@@ -22,7 +21,8 @@ module.exports = async (req, res, db) => {
                 .status(400)
                 .json({ status: "failure", msg: error.details[0].message });
 
-        await contactColl.insertOne(message);
+        const contact = new Contact(message);
+        await contact.save();
 
         const emailInfo = await sendContactEmail(message);
         console.log(emailInfo);
