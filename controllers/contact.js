@@ -1,5 +1,6 @@
 const { nanoid } = require("nanoid");
 const { validateContact } = require("../validation/validation.js");
+const sendContactEmail = require("../nodemailer/contactMail.js");
 
 module.exports = async (req, res, db) => {
     const { name, email, topic, body } = req.body;
@@ -22,6 +23,10 @@ module.exports = async (req, res, db) => {
                 .json({ status: "failure", msg: error.details[0].message });
 
         await contactColl.insertOne(message);
+
+        const emailInfo = await sendContactEmail(message);
+        console.log(emailInfo);
+
         res.json({
             status: "success",
             msg: "your message has been sucessfully submited to the admins",

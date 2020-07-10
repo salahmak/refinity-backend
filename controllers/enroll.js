@@ -1,5 +1,6 @@
 const { nanoid } = require("nanoid");
 const { validateEnroll } = require("../validation/validation.js");
+const sendEnrollEmail = require("../nodemailer/enrollMail.js");
 
 module.exports = async (req, res, db) => {
     const {
@@ -65,6 +66,9 @@ module.exports = async (req, res, db) => {
 
         if (relationsMails)
             await relationsMailsColl.insertOne({ id: enrollForm.id, email });
+
+        const emailInfo = await sendEnrollEmail(enrollForm);
+        console.log(emailInfo);
 
         res.json({
             status: "success",
