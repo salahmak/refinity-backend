@@ -24,10 +24,10 @@ module.exports = async (req, res) => {
     } = req.body;
 
     const enrollForm = {
-        id: nanoid(),
         name,
         email,
         grade,
+        status: "pending",
         geoLocation,
         timezone,
         service,

@@ -28,7 +28,16 @@ const validateContact = (data) => {
     return contactSchema.validate(data);
 };
 
+const validateAdminAuth = (data) => {
+    const adminSchema = Joi.object({
+        email: Joi.string().email().required(),
+        password: Joi.string().min(6).max(26).required(),
+    });
+    return adminSchema.validate(data);
+};
+
 module.exports = {
     validateEnroll,
     validateContact,
+    validateAdminAuth,
 };
