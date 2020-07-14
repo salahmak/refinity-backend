@@ -2,10 +2,6 @@ const { nanoid } = require("nanoid");
 const { validateEnroll } = require("../../validation/validation.js");
 const sendEnrollEmail = require("../../nodemailer/enrollMail.js");
 const Enrollment = require("../../models/enrollments/enrollment.js");
-const AcademicMail = require("../../models/emails/academic-mail.js");
-const EmailList = require("../../models/emails/email-list.js");
-const RelationsMail = require("../../models/emails/relations-mail.js");
-const TutoringMail = require("../../models/emails/tutoring-mail.js");
 
 module.exports = async (req, res) => {
     const {
@@ -55,31 +51,6 @@ module.exports = async (req, res) => {
         //storing the enrollment in the enrollments collection
         const enrollment = new Enrollment(enrollForm);
         await enrollment.save();
-        //await enrollsColl.insertOne(enrollForm);
-
-        //storing the email in other collections by checking the booleans
-        if (emailList) {
-            const emailList = new EmailList({ id: enrollForm.id, email });
-            await emailList.save();
-        }
-
-        if (tutoringMails) {
-            const tutoringMail = new TutoringMail({ id: enrollForm.id, email });
-            await tutoringMail.save();
-        }
-
-        if (academicSvsMails) {
-            const academicMail = new AcademicMail({ id: enrollForm.id, email });
-            await academicMail.save();
-        }
-
-        if (relationsMails) {
-            const relationsMail = new RelationsMail({
-                id: enrollForm.id,
-                email,
-            });
-            await relationsMail.save();
-        }
 
         const emailInfo = await sendEnrollEmail(enrollForm);
         console.log(emailInfo);
