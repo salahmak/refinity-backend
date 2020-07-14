@@ -28,8 +28,17 @@ const validateContact = (data) => {
     return contactSchema.validate(data);
 };
 
-const validateAdminAuth = (data) => {
+const validateAdminLogin = (data) => {
     const adminSchema = Joi.object({
+        email: Joi.string().email().required(),
+        password: Joi.string().min(6).max(26).required(),
+    });
+    return adminSchema.validate(data);
+};
+
+const validateAdminRegister = (data) => {
+    const adminSchema = Joi.object({
+        username: Joi.string().required(),
         email: Joi.string().email().required(),
         password: Joi.string().min(6).max(26).required(),
     });
@@ -39,5 +48,6 @@ const validateAdminAuth = (data) => {
 module.exports = {
     validateEnroll,
     validateContact,
-    validateAdminAuth,
+    validateAdminLogin,
+    validateAdminRegister,
 };

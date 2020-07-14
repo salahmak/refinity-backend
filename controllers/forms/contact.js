@@ -1,7 +1,7 @@
 const { nanoid } = require("nanoid");
-const { validateContact } = require("../validation/validation.js");
-const sendContactEmail = require("../nodemailer/contactMail.js");
-const Contact = require("../models/contact/contactForm.js");
+const { validateContact } = require("../../validation/validation.js");
+const sendContactEmail = require("../../nodemailer/contactMail.js");
+const Contact = require("../../models/contact/contactForm.js");
 
 module.exports = async (req, res) => {
     const { name, email, topic, body } = req.body;

@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
-const { nanoid } = require("nanoid");
 
 const contactSchema = mongoose.Schema({
     id: {
         type: String,
-        default: nanoid(),
+        required: true,
     },
     name: {
         type: String,

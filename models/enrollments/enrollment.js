@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
-const { nanoid } = require("nanoid");
 
 const enrollSchema = mongoose.Schema({
     id: {
         type: String,
-        default: nanoid(),
+        required: true,
+    },
+    date: {
+        type: String,
+        required: true,
     },
     name: {
         type: String,
@@ -15,6 +18,10 @@ const enrollSchema = mongoose.Schema({
         required: true,
     },
     grade: {
+        type: String,
+        required: true,
+    },
+    status: {
         type: String,
         required: true,
     },

@@ -1,11 +1,11 @@
 const { nanoid } = require("nanoid");
-const { validateEnroll } = require("../validation/validation.js");
-const sendEnrollEmail = require("../nodemailer/enrollMail.js");
-const Enrollment = require("../models/enrollments/enrollment.js");
-const AcademicMail = require("../models/emails/academic-mail.js");
-const EmailList = require("../models/emails/email-list.js");
-const RelationsMail = require("../models/emails/relations-mail.js");
-const TutoringMail = require("../models/emails/tutoring-mail.js");
+const { validateEnroll } = require("../../validation/validation.js");
+const sendEnrollEmail = require("../../nodemailer/enrollMail.js");
+const Enrollment = require("../../models/enrollments/enrollment.js");
+const AcademicMail = require("../../models/emails/academic-mail.js");
+const EmailList = require("../../models/emails/email-list.js");
+const RelationsMail = require("../../models/emails/relations-mail.js");
+const TutoringMail = require("../../models/emails/tutoring-mail.js");
 
 module.exports = async (req, res) => {
     const {
@@ -24,6 +24,8 @@ module.exports = async (req, res) => {
     } = req.body;
 
     const enrollForm = {
+        id: nanoid(),
+        date: new Date(),
         name,
         email,
         grade,

@@ -5,7 +5,7 @@ const adminAuthSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    password: {
+    hash: {
         type: String,
         required: true,
     },

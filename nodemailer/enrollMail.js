@@ -3,9 +3,11 @@ const nodemailer = require("nodemailer");
 module.exports = async (enroll) => {
     const {
         id,
+        date,
         name,
         email,
         grade,
+        status,
         geoLocation,
         timezone,
         service,
@@ -30,8 +32,10 @@ module.exports = async (enroll) => {
     <h4>enroll info</h4>
     <ul>
         <li>id: ${id}</li>
+        <li>date: ${date}</li>
         <li>name: ${name}</li>
         <li>email: ${email}</li>
+        <li>status: ${status}</li>
         <li>grade: ${grade}</li>
         <li>geoLocation: ${geoLocation}</li>
         <li>timezone: ${timezone}</li>
