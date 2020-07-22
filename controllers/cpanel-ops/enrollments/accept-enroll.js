@@ -5,10 +5,10 @@ const RelationsMail = require("../../../models/emails/relations-mail.js");
 const TutoringMail = require("../../../models/emails/tutoring-mail.js");
 
 module.exports = async (req, res) => {
-    const { enroll_id } = req.body;
+    const { id } = req.query;
 
     try {
-        const enroll = await Enrollments.findOne({ id: enroll_id });
+        const enroll = await Enrollments.findOne({ id });
         if (!enroll) {
             return res.status(400).json({
                 status: "failure",

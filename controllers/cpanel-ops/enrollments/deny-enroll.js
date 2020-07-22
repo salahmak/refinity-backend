@@ -1,10 +1,10 @@
 const Enrollments = require("../../../models/enrollments/enrollment.js");
 
 module.exports = async (req, res) => {
-    const { enroll_id } = req.body;
+    const { id } = req.query;
 
     try {
-        const enroll = await Enrollments.findOneAndDelete({ id: enroll_id });
+        const enroll = await Enrollments.findOneAndDelete({ id });
 
         if (!enroll)
             return res.status(400).json({
