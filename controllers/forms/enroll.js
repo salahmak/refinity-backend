@@ -42,18 +42,18 @@ module.exports = async (req, res) => {
         const { error } = validateEnroll(req.body);
         if (error) return res.status(400).json(error.details[0].message);
 
-        const student = await Enrollment.findOne({ email });
-        if (student)
-            return res
-                .status(400)
-                .json({ status: "failure", msg: "student already exists" });
+        //!    UNCOMMENT THIS
+        // const student = await Enrollment.findOne({ email });
+        // if (student)
+        //     return res.status(400).json({ status: "failure", msg: "student already exists" });
 
         //storing the enrollment in the enrollments collection
         const enrollment = new Enrollment(enrollForm);
         await enrollment.save();
 
-        const emailInfo = await sendEnrollEmail(enrollForm);
-        console.log(emailInfo);
+        //!  UNCOMMENT THIS
+        // const emailInfo = await sendEnrollEmail(enrollForm);
+        // console.log(emailInfo);
 
         res.json({
             status: "success",
