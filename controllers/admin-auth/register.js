@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     const adminData = {
         id: nanoid(),
         username,
-        email,
+        email: email.toLowerCase(),
         password,
     };
 
@@ -18,9 +18,8 @@ module.exports = async (req, res) => {
     if (error) return res.status(400).json(error.details[0].message);
 
     try {
-        const adminExists = await Admin.findOne({ email });
-        if (adminExists)
-            return res.json({ status: "failure", msg: "admin already exists" });
+        const adminExists = await Admin.findOne({ email: email.toLowerCase() });
+        if (adminExists) return res.json({ status: "failure", msg: "admin already exists" });
 
         const hash = await bcrypt.hash(password, 10);
 

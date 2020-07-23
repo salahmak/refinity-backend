@@ -4,7 +4,7 @@ module.exports = async (req, res) => {
     const { string = "", filter = "name" } = req.query;
 
     try {
-        const enrolls = await Enrollments.find({ [filter]: string });
+        const enrolls = await Enrollments.find({ [filter]: string.toLowerCase() });
         const count = enrolls.length;
 
         res.json({
