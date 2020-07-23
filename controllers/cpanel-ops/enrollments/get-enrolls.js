@@ -13,14 +13,14 @@ module.exports = async (req, res) => {
             enrolls = await Enrollments.find()
                 .limit(parseInt(limit))
                 .skip((page - 1) * limit)
-                .sort("-date")
+                .sort({ date: -1 })
                 .exec();
             count = await Enrollments.countDocuments();
         } else {
             enrolls = await Enrollments.find({ status })
                 .limit(parseInt(limit))
                 .skip((page - 1) * limit)
-                .sort("-date")
+                .sort({ date: -1 })
                 .exec();
             count = await Enrollments.countDocuments({ status });
         }

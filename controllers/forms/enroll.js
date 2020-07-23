@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
 
     const enrollForm = {
         id: nanoid(),
-        date: new Date(),
+        date: new Date().getTime(),
         name: name.toLowerCase(),
         email: email.toLowerCase(),
         grade,
