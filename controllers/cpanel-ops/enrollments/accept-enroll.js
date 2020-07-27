@@ -11,19 +11,18 @@ module.exports = async (req, res) => {
         const enroll = await Enrollments.findOne({ id });
         if (!enroll) {
             return res.status(400).json({
-                status: "failure",
                 msg: "enrollment has been deleted or doesn't exist",
             });
         }
 
         if (enroll.status === "accepted") {
             return res.status(400).json({
-                status: "failure",
                 msg: "enrollment is already accepted",
             });
         }
 
         await enroll.updateOne({ status: "accepted" });
+        //todo send email to the person
 
         if (enroll.emailList) {
             const emailList = new EmailList({

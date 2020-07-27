@@ -12,7 +12,8 @@ module.exports = async (req, res) => {
 
     try {
         const adminExists = await Admin.findOne({ email: email.toLowerCase() });
-        if (!adminExists) return res.json({ status: "failure", msg: "email doesn't exists" });
+        if (!adminExists)
+            return res.status(400).json({ status: "failure", msg: "email doesn't exists" });
 
         const { hash } = await AdminAuth.findOne({ id: adminExists.id });
 
@@ -24,7 +25,7 @@ module.exports = async (req, res) => {
         });
         res.header("auth-token", token).json(token);
     } catch {
-        res.status(400).json({
+        res.status(500).json({
             status: "failure",
             msg: "there was an error while signing in",
         });

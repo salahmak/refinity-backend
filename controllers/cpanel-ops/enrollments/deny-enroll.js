@@ -15,6 +15,7 @@ module.exports = async (req, res) => {
         res.json({
             status: "success",
             msg: "enrollment has been deleted",
+            enroll,
         });
     } catch (err) {
         res.status(400).json({
