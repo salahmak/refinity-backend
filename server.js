@@ -11,7 +11,7 @@ const DB_URL = process.env.DB_URL;
 const app = express();
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: true,
         credentials: true,
     })
 );
