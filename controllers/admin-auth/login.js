@@ -28,13 +28,12 @@ module.exports = async (req, res) => {
             httpOnly: true,
             maxAge: 432000000,
             secure: process.env.NODE_ENV === "production",
-            domain: "refinity-cpanel.vercel.app",
             path: "/",
-            sameSite: "none",
+            sameSite: true,
         };
 
-        res.cookie("token", token, options);
-        res.json("OK");
+        //res.cookie("token", token, options);
+        res.json(token);
     } catch (e) {
         console.log(e);
         res.status(500).json({

@@ -37,8 +37,8 @@ module.exports = async (req, res) => {
             secure: true,
         };
 
-        res.cookie("token", token, options);
-        res.json("OK");
+        //res.cookie("token", token, options);
+        res.json(token);
     } catch (err) {
         res.status(400).json({
             status: "failure",
