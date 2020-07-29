@@ -11,7 +11,7 @@ const DB_URL = process.env.DB_URL;
 const app = express();
 app.use(
     cors({
-        origin: true,
+        origin: "https://refinity-cpanel-q2suzfbui.vercel.app",
         credentials: true,
     })
 );
