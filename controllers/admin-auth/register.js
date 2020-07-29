@@ -30,14 +30,6 @@ module.exports = async (req, res) => {
 
         const token = jwt.sign({ id: adminData.id }, process.env.TOKEN_SECRET);
 
-        const options = {
-            httpOnly: true,
-            maxAge: 432000000,
-            sameSite: "none",
-            secure: true,
-        };
-
-        //res.cookie("token", token, options);
         res.json(token);
     } catch (err) {
         res.status(400).json({

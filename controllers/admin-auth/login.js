@@ -24,15 +24,6 @@ module.exports = async (req, res) => {
             expiresIn: 432000,
         });
 
-        const options = {
-            httpOnly: true,
-            maxAge: 432000000,
-            secure: process.env.NODE_ENV === "production",
-            path: "/",
-            sameSite: true,
-        };
-
-        //res.cookie("token", token, options);
         res.json(token);
     } catch (e) {
         console.log(e);
