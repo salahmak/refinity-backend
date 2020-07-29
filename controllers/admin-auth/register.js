@@ -33,7 +33,6 @@ module.exports = async (req, res) => {
         const options = {
             httpOnly: true,
             maxAge: 432000000,
-            secure: process.env.NODE_ENV === "production",
         };
 
         res.cookie("token", token, options);
