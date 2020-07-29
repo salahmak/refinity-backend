@@ -33,6 +33,8 @@ module.exports = async (req, res) => {
         const options = {
             httpOnly: true,
             maxAge: 432000000,
+            sameSite: "none",
+            secure: true,
         };
 
         res.cookie("token", token, options);

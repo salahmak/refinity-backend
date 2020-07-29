@@ -27,6 +27,10 @@ module.exports = async (req, res) => {
         const options = {
             httpOnly: true,
             maxAge: 432000000,
+            secure: process.env.NODE_ENV === "production",
+            domain: "127.0.0.1",
+            path: "/",
+            sameSite: "none",
         };
 
         res.cookie("token", token, options);

@@ -10,7 +10,12 @@ const DB_URL = process.env.DB_URL;
 
 const app = express();
 
-let allowlist = ["http://localhost:3000", "https://refinity-cpanel.vercel.app"];
+let allowlist = [
+    "http://localhost:3000",
+    "https://refinity-cpanel.vercel.app",
+    "http://127.0.0.1:3000",
+    "http://der.localhost:3000",
+];
 
 let corsOptionsDelegate = function (req, callback) {
     let corsOptions;
