@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
         type !== "relations-mails" ||
         type !== "tutoring-mails";
 
-    if (!valid)
+    if (!valid || type === undefined || type === null)
         return res.status(400).json({
             status: "failure",
             msg: "please provide a valid emails type",

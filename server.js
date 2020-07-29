@@ -2,13 +2,20 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = require("./router/router.js");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 require("dotenv").config();
 const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
 
 const app = express();
-app.use(cors());
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+    })
+);
+app.use(cookieParser());
 app.use(express.json());
 app.use("/", router);
 

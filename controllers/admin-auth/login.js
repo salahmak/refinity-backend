@@ -23,8 +23,17 @@ module.exports = async (req, res) => {
         const token = jwt.sign({ id: adminExists.id }, process.env.TOKEN_SECRET, {
             expiresIn: 432000,
         });
-        res.header("auth-token", token).json(token);
-    } catch {
+
+        const options = {
+            httpOnly: true,
+            maxAge: 432000000,
+            secure: process.env.NODE_ENV === "production",
+        };
+
+        res.cookie("token", token, options);
+        res.json("OK");
+    } catch (e) {
+        console.log(e);
         res.status(500).json({
             status: "failure",
             msg: "there was an error while signing in",

@@ -29,7 +29,15 @@ module.exports = async (req, res) => {
         await adminAuth.save();
 
         const token = jwt.sign({ id: adminData.id }, process.env.TOKEN_SECRET);
-        res.header("auth-token", token).json(token);
+
+        const options = {
+            httpOnly: true,
+            maxAge: 432000000,
+            secure: process.env.NODE_ENV === "production",
+        };
+
+        res.cookie("token", token, options);
+        res.json("OK");
     } catch (err) {
         res.status(400).json({
             status: "failure",
