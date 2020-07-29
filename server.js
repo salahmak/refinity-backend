@@ -9,12 +9,20 @@ const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
 
 const app = express();
-app.use(
-    cors({
-        origin: "*",
-        credentials: true,
-    })
-);
+
+let allowlist = ["http://localhost:3000", "https://refinity-cpanel.vercel.app"];
+
+let corsOptionsDelegate = function (req, callback) {
+    let corsOptions;
+    if (allowlist.indexOf(req.header("Origin")) !== -1) {
+        corsOptions = { origin: true, credentials: true }; // reflect (enable) the requested origin in the CORS response
+    } else {
+        corsOptions = { origin: false, credentials: true }; // disable CORS for this request
+    }
+    callback(null, corsOptions); // callback expects two parameters: error and options
+};
+
+app.use(cors(corsOptionsDelegate));
 app.use(cookieParser());
 app.use(express.json());
 app.use("/", router);
