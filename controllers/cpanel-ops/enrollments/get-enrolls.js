@@ -14,6 +14,7 @@ module.exports = async (req, res) => {
                 .limit(parseInt(limit))
                 .skip((page - 1) * limit)
                 .sort({ date: -1 })
+                .lean()
                 .exec();
             count = await Enrollments.countDocuments();
         } else {
@@ -21,6 +22,7 @@ module.exports = async (req, res) => {
                 .limit(parseInt(limit))
                 .skip((page - 1) * limit)
                 .sort({ date: -1 })
+                .lean()
                 .exec();
             count = await Enrollments.countDocuments({ status });
         }

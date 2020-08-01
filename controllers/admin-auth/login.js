@@ -11,11 +11,11 @@ module.exports = async (req, res) => {
     if (error) return res.status(400).json(error.details[0].message);
 
     try {
-        const adminExists = await Admin.findOne({ email: email.toLowerCase() });
+        const adminExists = await Admin.findOne({ email: email.toLowerCase() }).lean();
         if (!adminExists)
             return res.status(400).json({ status: "failure", msg: "email doesn't exists" });
 
-        const { hash } = await AdminAuth.findOne({ id: adminExists.id });
+        const { hash } = await AdminAuth.findOne({ id: adminExists.id }).lean();
 
         const isValid = await bcrypt.compare(password, hash);
         if (!isValid) return res.status(400).json("password doesn't match");

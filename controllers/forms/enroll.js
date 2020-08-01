@@ -43,7 +43,7 @@ module.exports = async (req, res) => {
         if (error) return res.status(400).json(error.details[0].message);
 
         //!    UNCOMMENT THIS
-        // const student = await Enrollment.findOne({ email });
+        // const student = await Enrollment.findOne({ email }).lean();
         // if (student)
         //     return res.status(400).json({ status: "failure", msg: "student already exists" });
 

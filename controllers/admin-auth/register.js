@@ -12,21 +12,23 @@ module.exports = async (req, res) => {
         username,
         email: email.toLowerCase(),
         password,
+        acceptedEnrolls: 0,
+        deletedEnrolls: 0,
+        date: new Date().getTime(),
     };
 
     const { error } = validateAdminRegister(req.body);
     if (error) return res.status(400).json(error.details[0].message);
 
     try {
-        const adminExists = await Admin.findOne({ email: email.toLowerCase() });
+        const adminExists = await Admin.findOne({ email: email.toLowerCase() }).lean();
         if (adminExists) return res.json({ status: "failure", msg: "admin already exists" });
 
         const hash = await bcrypt.hash(password, 10);
 
         const admin = new Admin(adminData);
         const adminAuth = new AdminAuth({ id: adminData.id, hash });
-        await admin.save();
-        await adminAuth.save();
+        await Promise.all[(admin.save(), adminAuth.save())];
 
         const token = jwt.sign({ id: adminData.id }, process.env.TOKEN_SECRET);
 

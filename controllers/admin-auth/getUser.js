@@ -4,7 +4,7 @@ module.exports = async (req, res) => {
     const { id } = req.user;
 
     try {
-        const adminExists = await Admin.findOne({ id });
+        const adminExists = await Admin.findOne({ id }).lean();
         if (!adminExists) return res.status(400).json({ status: "failure", msg: "user doesn't exists" });
 
         res.json(adminExists);

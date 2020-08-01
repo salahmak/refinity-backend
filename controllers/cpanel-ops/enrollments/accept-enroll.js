@@ -3,6 +3,7 @@ const AcademicMail = require("../../../models/emails/academic-mail.js");
 const EmailList = require("../../../models/emails/email-list.js");
 const RelationsMail = require("../../../models/emails/relations-mail.js");
 const TutoringMail = require("../../../models/emails/tutoring-mail.js");
+const Admin = require("../../../models/auth/admin.js");
 
 module.exports = async (req, res) => {
     const { id } = req.query;
@@ -20,6 +21,8 @@ module.exports = async (req, res) => {
                 msg: "enrollment is already accepted",
             });
         }
+
+        await Admin.findOneAndUpdate({ id: req.user.id }, { $inc: { acceptedEnrolls: 1 } }).lean();
 
         await enroll.updateOne({ status: "accepted" });
         //todo send email to the person

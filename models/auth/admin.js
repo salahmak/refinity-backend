@@ -13,6 +13,18 @@ const adminSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    acceptedEnrolls: {
+        type: Number,
+        required: true,
+    },
+    deletedEnrolls: {
+        type: Number,
+        required: true,
+    },
+    date: {
+        type: Number,
+        required: true,
+    },
 });
 
 module.exports = mongoose.model("admins", adminSchema);
