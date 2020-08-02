@@ -26,12 +26,12 @@ module.exports = async (req, res) => {
                 "geoLocation",
                 "timezone",
                 "service",
-                "profInterest",
+                "profInterests",
                 "funFact",
                 "emailList",
                 "tutoringMails",
                 "relationsMails",
-                "academicMails",
+                "academicSvsMails",
             ],
         };
         let enrolls;
