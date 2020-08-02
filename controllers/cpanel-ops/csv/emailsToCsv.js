@@ -22,14 +22,13 @@ module.exports = async (req, res) => {
             "..",
             "..",
             "csv-exports",
-            "emails",
             `emails-${filter === "emails" ? "all" : filter}-${time}.csv`
         );
         const json2CsvParser = new json2csv(options);
         const csvData = json2CsvParser.parse(emails);
 
         fs.writeFile(filePath, csvData, (err) => {
-            if (err) return res.status(400).json({ msg: "error" });
+            if (err) return res.status(400).json({ msg: "error while writing file" });
             console.log("writing is done");
         });
 

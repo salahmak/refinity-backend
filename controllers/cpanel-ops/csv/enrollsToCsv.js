@@ -54,7 +54,7 @@ module.exports = async (req, res) => {
         const csvData = json2CsvParser.parse(enrolls);
 
         fs.writeFile(filePath, csvData, (err) => {
-            if (err) return res.status(400).json({ msg: "error" });
+            if (err) return res.status(400).json({ msg: "error while writing file" });
             console.log("writing is done");
         });
 
