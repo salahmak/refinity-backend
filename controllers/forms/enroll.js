@@ -2,8 +2,10 @@ const { nanoid } = require("nanoid");
 const { validateEnroll } = require("../../validation/validation.js");
 const sendEnrollEmail = require("../../nodemailer/enrollMail.js");
 const Enrollment = require("../../models/enrollments/enrollment.js");
+const moment = require("moment");
 
 module.exports = async (req, res) => {
+    const time = moment();
     const {
         name,
         email,
@@ -21,7 +23,10 @@ module.exports = async (req, res) => {
 
     const enrollForm = {
         id: nanoid(),
-        date: new Date().getTime(),
+        date: time.format("MM-DD-YYYY"),
+        createdAt: time.valueOf(),
+        accept_date: null,
+        acceptedAt: null,
         name: name.toLowerCase(),
         email: email.toLowerCase(),
         grade,
@@ -60,6 +65,7 @@ module.exports = async (req, res) => {
             msg: "your enrollment has been successfully submitted",
         });
     } catch (err) {
+        console.log(err);
         res.status(400).json({
             status: "failure",
             msg: "there has been an error while submitting your enrollment",

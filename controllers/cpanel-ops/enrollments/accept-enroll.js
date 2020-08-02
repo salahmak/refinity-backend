@@ -4,9 +4,12 @@ const EmailList = require("../../../models/emails/email-list.js");
 const RelationsMail = require("../../../models/emails/relations-mail.js");
 const TutoringMail = require("../../../models/emails/tutoring-mail.js");
 const Admin = require("../../../models/auth/admin.js");
+const moment = require("moment");
+const Email = require("../../../models/emails/email.js");
 
 module.exports = async (req, res) => {
     const { id } = req.query;
+    const time = moment();
 
     try {
         const enroll = await Enrollments.findOne({ id });
@@ -24,7 +27,14 @@ module.exports = async (req, res) => {
 
         await Admin.findOneAndUpdate({ id: req.user.id }, { $inc: { acceptedEnrolls: 1 } }).lean();
 
-        await enroll.updateOne({ status: "accepted" });
+        const email = new Email({ id: enroll.id, email: enroll.email });
+        await email.save();
+
+        await enroll.updateOne({
+            status: "accepted",
+            accept_date: time.format("MM-DD-YYYY"),
+            acceptedAt: time.valueOf(),
+        });
         //todo send email to the person
 
         if (enroll.emailList) {

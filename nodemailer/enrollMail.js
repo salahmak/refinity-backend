@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 module.exports = async (enroll) => {
     const {
         id,
-        date,
+        createdAt,
         name,
         email,
         grade,
@@ -32,7 +32,7 @@ module.exports = async (enroll) => {
     <h4>enroll info</h4>
     <ul>
         <li>id: ${id}</li>
-        <li>date: ${date}</li>
+        <li>created on: ${Date(createdAt)}</li>
         <li>name: ${name}</li>
         <li>email: ${email}</li>
         <li>status: ${status}</li>

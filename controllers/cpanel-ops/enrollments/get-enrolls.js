@@ -10,15 +10,15 @@ module.exports = async (req, res) => {
         let enrolls;
         let count;
         if (status === "all") {
-            enrolls = await Enrollments.find()
+            enrolls = await Enrollments.find({}, "-_id -__v -date -accept_date")
                 .limit(parseInt(limit))
                 .skip((page - 1) * limit)
-                .sort({ date: -1 })
+                .sort({ createdAt: -1 })
                 .lean()
                 .exec();
             count = await Enrollments.countDocuments();
         } else {
-            enrolls = await Enrollments.find({ status })
+            enrolls = await Enrollments.find({ status }, "-_id -__v -createdAt -acceptedAt")
                 .limit(parseInt(limit))
                 .skip((page - 1) * limit)
                 .sort({ date: -1 })

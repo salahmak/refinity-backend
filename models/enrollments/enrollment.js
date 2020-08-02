@@ -9,6 +9,18 @@ const enrollSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    accept_date: {
+        type: String,
+        required: false,
+    },
+    createdAt: {
+        type: Number,
+        required: true,
+    },
+    acceptedAt: {
+        type: Number,
+        required: false,
+    },
     name: {
         type: String,
         required: true,
