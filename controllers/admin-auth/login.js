@@ -8,17 +8,16 @@ module.exports = async (req, res) => {
     const { email, password } = req.body;
 
     const { error } = validateAdminLogin(req.body);
-    if (error) return res.status(400).json(error.details[0].message);
+    if (error) return res.status(400).json({ msg: error.details[0].message });
 
     try {
         const adminExists = await Admin.findOne({ email: email.toLowerCase() }).lean();
-        if (!adminExists)
-            return res.status(400).json({ status: "failure", msg: "email doesn't exists" });
+        if (!adminExists) return res.status(400).json({ msg: "email doesn't exists" });
 
         const { hash } = await AdminAuth.findOne({ id: adminExists.id }).lean();
 
         const isValid = await bcrypt.compare(password, hash);
-        if (!isValid) return res.status(400).json("password doesn't match");
+        if (!isValid) return res.status(400).json({ msg: "password doesn't match" });
 
         const token = jwt.sign({ id: adminExists.id }, process.env.TOKEN_SECRET, {
             expiresIn: 432000,
@@ -27,9 +26,6 @@ module.exports = async (req, res) => {
         res.json(token);
     } catch (e) {
         console.log(e);
-        res.status(500).json({
-            status: "failure",
-            msg: "there was an error while signing in",
-        });
+        res.status(500).json({ msg: "there was an error while signing in" });
     }
 };

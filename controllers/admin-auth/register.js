@@ -18,11 +18,11 @@ module.exports = async (req, res) => {
     };
 
     const { error } = validateAdminRegister(req.body);
-    if (error) return res.status(400).json(error.details[0].message);
+    if (error) return res.status(400).json({ msg: error.details[0].message });
 
     try {
         const adminExists = await Admin.findOne({ email: email.toLowerCase() }).lean();
-        if (adminExists) return res.json({ status: "failure", msg: "admin already exists" });
+        if (adminExists) return res.json({ msg: "admin already exists" });
 
         const hash = await bcrypt.hash(password, 10);
 
@@ -34,9 +34,6 @@ module.exports = async (req, res) => {
 
         res.json(token);
     } catch (err) {
-        res.status(400).json({
-            status: "failure",
-            msg: err.stack,
-        });
+        res.status(500).json({ msg: "there was an error while creating a new admin" });
     }
 };

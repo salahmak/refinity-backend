@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
     const { filter = "emails" } = req.query;
 
     const valid = ["emails", "email-lists", "academic-mails", "relations-mails", "tutoring-mails"];
-    if (!valid.includes(filter)) return res.status(400).json("please provide a valide filter");
+    if (!valid.includes(filter)) return res.status(400).json({ msg: "please provide a valide filter" });
 
     try {
         const options = { header: true, fields: ["id", "email"] };
@@ -44,6 +44,6 @@ module.exports = async (req, res) => {
         return res.attachment(filePath);
     } catch (err) {
         console.log(err);
-        res.status(500).json("there has been an error while getting the emails");
+        res.status(500).json({ msg: "there has been an error while getting the emails" });
     }
 };

@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
         if (!enroll)
             return res.status(400).json({
                 status: "failure",
-                msg: "enrollment has been already deleted",
+                msg: "enrollment doesn't exist or has already been deleted",
             });
 
         res.json({

@@ -8,19 +8,19 @@ module.exports = async (req, res) => {
     const { email, currentPassword, newPassword } = req.body;
 
     if (currentPassword === newPassword)
-        return res.status(400).json("please don't use the old password as the new one");
+        return res.status(400).json({ msg: "please don't use the old password as the new one" });
 
     const { error } = validateAdminLogin({ email, password: newPassword });
-    if (error) return res.status(400).json(error.details[0].message);
+    if (error) return res.status(400).json({ msg: error.details[0].message });
 
     try {
         const adminExists = await Admin.findOne({ id, email }).lean();
-        if (!adminExists) return res.status(400).json({ status: "failure", msg: "user doesn't exists" });
+        if (!adminExists) return res.status(400).json({ msg: "user doesn't exists" });
 
         const adminAuth = await AdminAuth.findOne({ id });
 
         const isValid = await bcrypt.compare(currentPassword, adminAuth.hash);
-        if (!isValid) return res.status(400).json("password doesn't match");
+        if (!isValid) return res.status(400).json({ msg: "password is not correct" });
 
         const newHash = await bcrypt.hash(newPassword, 10);
 
@@ -29,6 +29,6 @@ module.exports = async (req, res) => {
         res.json({ msg: "ok" });
     } catch (err) {
         console.log(err);
-        res.status(500).json("there was an error while updating the password");
+        res.status(500).json({ msg: "there was an error while updating the password" });
     }
 };
