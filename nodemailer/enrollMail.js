@@ -32,7 +32,7 @@ module.exports = async (enroll) => {
     <h4>enroll info</h4>
     <ul>
         <li>id: ${id}</li>
-        <li>created on: ${Date(createdAt)}</li>
+        <li>created on: ${new Date(createdAt)}</li>
         <li>name: ${name}</li>
         <li>email: ${email}</li>
         <li>status: ${status}</li>

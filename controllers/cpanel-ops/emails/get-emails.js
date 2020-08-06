@@ -3,11 +3,7 @@ const mongoose = require("mongoose");
 module.exports = async (req, res) => {
     const { type } = req.query;
 
-    const valid =
-        type !== "email-lists" ||
-        type !== "academic-mails" ||
-        type !== "relations-mails" ||
-        type !== "tutoring-mails";
+    const valid = ["email-lists", "academic-mails", "relations-mails", "tutoring-mails"].includes(type);
 
     if (!valid || type === undefined || type === null)
         return res.status(400).json({
