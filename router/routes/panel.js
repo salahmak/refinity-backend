@@ -11,9 +11,9 @@ const emailsToCsv = require("../../controllers/cpanel-ops/csv/emailsToCsv.js");
 router.delete("/enrolls/delete", verifyToken, denyEnroll);
 router.put("/enrolls/accept", verifyToken, acceptEnroll);
 router.get("/emails/get", verifyToken, getEmails);
-router.get("/emails/download", emailsToCsv);
+router.get("/emails/download", verifyToken, emailsToCsv);
 router.get("/enrolls/getall", verifyToken, getEnrolls);
 router.get("/enrolls/search", verifyToken, searchEnrolls);
-router.get("/enrolls/download", enrollsToCsv);
+router.get("/enrolls/download", verifyToken, enrollsToCsv);
 
 module.exports = router;
