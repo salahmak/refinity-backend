@@ -25,17 +25,17 @@ module.exports = async (req, res) => {
             });
         }
 
-        await Admin.findOneAndUpdate({ id: req.user.id }, { $inc: { acceptedEnrolls: 1 } }).lean();
-
-        const email = new Email({ id: enroll.id, email: enroll.email });
-        await email.save();
-
         await enroll.updateOne({
             status: "accepted",
             accept_date: time.format("MM-DD-YYYY"),
             acceptedAt: time.valueOf(),
         });
         //todo send email to the person
+
+        await Admin.findOneAndUpdate({ id: req.user.id }, { $inc: { acceptedEnrolls: 1 } }).lean();
+
+        const email = new Email({ id: enroll.id, email: enroll.email });
+        await email.save();
 
         if (enroll.emailList) {
             const emailList = new EmailList({
