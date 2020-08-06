@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
             enrolls = await Enrollments.find({ status }, "-_id -__v -createdAt -acceptedAt")
                 .limit(parseInt(limit))
                 .skip((page - 1) * limit)
-                .sort({ date: -1 })
+                .sort({ createdAt: -1 })
                 .lean()
                 .exec();
             count = await Enrollments.countDocuments({ status });

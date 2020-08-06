@@ -5,7 +5,7 @@ const cors = require("cors");
 
 require("dotenv").config();
 const PORT = process.env.PORT;
-const DB_URL = process.env.DB_URL;
+const DB_URL = process.env.NODE_ENV === "production" ? process.env.DB_URL_PROD : process.env.DB_URL_DEV;
 
 const app = express();
 
