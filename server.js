@@ -14,7 +14,12 @@ app.use(express.json());
 app.use("/", router);
 
 mongoose
-    .connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+    .connect(DB_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true,
+    })
     .then(() => {
         console.log("connected to db");
         app.listen(PORT, () => {

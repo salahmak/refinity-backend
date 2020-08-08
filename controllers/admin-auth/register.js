@@ -30,7 +30,9 @@ module.exports = async (req, res) => {
         const adminAuth = new AdminAuth({ id: adminData.id, hash });
         await Promise.all[(admin.save(), adminAuth.save())];
 
-        const token = jwt.sign({ id: adminData.id }, process.env.TOKEN_SECRET);
+        const token = jwt.sign({ id: adminData.id }, process.env.TOKEN_SECRET, {
+            expiresIn: "5 days",
+        });
 
         res.json(token);
     } catch (err) {

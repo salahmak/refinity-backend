@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
         if (!isValid) return res.status(400).json({ msg: "password doesn't match" });
 
         const token = jwt.sign({ id: adminExists.id }, process.env.TOKEN_SECRET, {
-            expiresIn: 432000,
+            expiresIn: "5 days",
         });
 
         res.json(token);
