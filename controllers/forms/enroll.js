@@ -7,6 +7,7 @@ const moment = require("moment");
 module.exports = async (req, res) => {
     const time = moment();
     const {
+        type,
         name,
         email,
         grade,
@@ -15,6 +16,7 @@ module.exports = async (req, res) => {
         service,
         profInterests,
         funFact,
+        scoreReport,
         emailList,
         tutoringMails,
         academicSvsMails,
@@ -27,6 +29,7 @@ module.exports = async (req, res) => {
         createdAt: time.valueOf(),
         accept_date: null,
         acceptedAt: null,
+        type,
         name: name.toLowerCase(),
         email: email.toLowerCase(),
         grade,
@@ -36,6 +39,7 @@ module.exports = async (req, res) => {
         service,
         profInterests,
         funFact,
+        scoreReport,
         emailList,
         tutoringMails,
         academicSvsMails,

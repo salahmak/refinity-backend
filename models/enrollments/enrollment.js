@@ -21,6 +21,10 @@ const enrollSchema = mongoose.Schema({
         type: Number,
         required: false,
     },
+    type: {
+        type: String,
+        required: true,
+    },
     name: {
         type: String,
         required: true,
@@ -56,6 +60,10 @@ const enrollSchema = mongoose.Schema({
     funFact: {
         type: String,
         required: true,
+    },
+    scoreReport: {
+        type: String,
+        required: false,
     },
     emailList: {
         type: Boolean,
