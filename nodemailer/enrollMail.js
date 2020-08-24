@@ -3,6 +3,7 @@ const nodemailer = require("nodemailer");
 module.exports = async (enroll) => {
     const {
         id,
+        type,
         createdAt,
         name,
         email,
@@ -13,6 +14,7 @@ module.exports = async (enroll) => {
         service,
         profInterests,
         funFact,
+        scoreReport,
         emailList,
         tutoringMails,
         academicSvsMails,
@@ -27,11 +29,14 @@ module.exports = async (enroll) => {
         },
     });
 
+    console.log(process.env.EMAIL, process.env.PASS);
+
     const emailHtml = `
     <h3>new enroll request</h3>
     <h4>enroll info</h4>
     <ul>
         <li>id: ${id}</li>
+        <li>type: ${type}</li>
         <li>created on: ${new Date(createdAt)}</li>
         <li>name: ${name}</li>
         <li>email: ${email}</li>
@@ -40,8 +45,9 @@ module.exports = async (enroll) => {
         <li>geoLocation: ${geoLocation}</li>
         <li>timezone: ${timezone}</li>
         <li>service: ${service}</li>
-        <li>profInterests: ${profInterests}</li>
-        <li>funFact: ${funFact}</li>
+        <li>professional interests: ${profInterests}</li>
+        <li>fun fact: ${funFact}</li>
+        <li>score report: ${scoreReport ? scoreReport : "/"}</li>
         <li>subscribed to email list: ${emailList}</li>
         <li>subscibed to tutoring emails: ${tutoringMails}</li>
         <li>subscribed to academic/Svs emails: ${academicSvsMails}</li>
@@ -50,7 +56,7 @@ module.exports = async (enroll) => {
     `;
 
     const mailOptions = {
-        from: email,
+        from: process.env.EMAIL,
         to: process.env.ADMIN_MAIL,
         subject: "Enrollment request",
         html: emailHtml,

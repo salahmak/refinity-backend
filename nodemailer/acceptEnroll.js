@@ -15,27 +15,15 @@ module.exports = async (enroll) => {
     <h3>new enroll request</h3>
     <h4>enroll info</h4>
     <ul>
-        <li>id: ${id}</li>
-        <li>date: ${date}</li>
         <li>name: ${name}</li>
         <li>email: ${email}</li>
-        <li>status: ${status}</li>
-        <li>grade: ${grade}</li>
-        <li>geoLocation: ${geoLocation}</li>
-        <li>timezone: ${timezone}</li>
-        <li>service: ${service}</li>
-        <li>profInterests: ${profInterests}</li>
-        <li>funFact: ${funFact}</li>
-        <li>subscribed to email list: ${emailList}</li>
-        <li>subscibed to tutoring emails: ${tutoringMails}</li>
-        <li>subscribed to academic/Svs emails: ${academicSvsMails}</li>
-        <li>subscribed to relations emails: ${relationsMails}</li>
+
     </ul>
     `;
 
     const mailOptions = {
-        from: email,
-        to: process.env.ADMIN_MAIL,
+        from: process.env.EMAIL,
+        to: email,
         subject: "Enrollment request",
         html: emailHtml,
     };
