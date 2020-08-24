@@ -29,7 +29,7 @@ module.exports = async (enroll) => {
         },
     });
 
-    console.log(process.env.EMAIL, process.env.PASS);
+    console.log(transporter);
 
     const emailHtml = `
     <h3>new enroll request</h3>

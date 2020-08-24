@@ -74,7 +74,7 @@ module.exports = async (req, res) => {
 
                 //!  UNCOMMENT THIS
                 const emailInfo = await sendEnrollEmail(enrollForm);
-                console.log(emailInfo);
+                console.log(!!emailInfo ? "email sent" : "email not sent");
 
                 res.json({
                     status: "success",
