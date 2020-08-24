@@ -4,7 +4,6 @@ const sendEnrollEmail = require("../../nodemailer/enrollMail.js");
 const Enrollment = require("../../models/enrollments/enrollment.js");
 const moment = require("moment");
 const formidable = require("formidable");
-const fetch = require("isomorphic-unfetch");
 const fs = require("fs");
 const FormData = require("form-data");
 const { Storage } = require("megajs");
