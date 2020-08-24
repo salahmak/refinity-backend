@@ -5,7 +5,6 @@ const Enrollment = require("../../models/enrollments/enrollment.js");
 const moment = require("moment");
 const formidable = require("formidable");
 const fs = require("fs");
-const FormData = require("form-data");
 const { Storage } = require("megajs");
 
 module.exports = async (req, res) => {
