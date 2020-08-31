@@ -6,8 +6,8 @@ const panel = require("./routes/panel.js");
 const rateLimit = require("express-rate-limit");
 
 const limiter = rateLimit({
-	windowMs: 60000, //1 min
-	max: 2, // only allow 2 requests per minute from the same ip address
+	windowMs: 60000,
+	max: 5,
 	message: { msg: "too many requests" },
 });
 

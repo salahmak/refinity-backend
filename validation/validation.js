@@ -10,8 +10,7 @@ const validateEnroll = (data) => {
         timezone: Joi.string().required(),
         service: Joi.string().required(),
         profInterests: Joi.string().required(),
-        funFact: Joi.string().required(),
-        scoreReport: Joi.string(),
+        funFact: Joi.string().optional().allow(""),
         emailList: Joi.boolean().required(),
         tutoringMails: Joi.boolean().required(),
         academicSvsMails: Joi.boolean().required(),
@@ -24,7 +23,6 @@ const validateContact = (data) => {
     const contactSchema = Joi.object({
         name: Joi.string().required(),
         email: Joi.string().email().required(),
-        topic: Joi.string().required(),
         body: Joi.string().required(),
     });
     return contactSchema.validate(data);

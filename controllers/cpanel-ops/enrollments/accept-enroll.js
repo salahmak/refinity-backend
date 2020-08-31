@@ -6,6 +6,7 @@ const TutoringMail = require("../../../models/emails/tutoring-mail.js");
 const Admin = require("../../../models/auth/admin.js");
 const moment = require("moment");
 const Email = require("../../../models/emails/email.js");
+const sendEmail = require("../../../nodemailer/sendEmail.js");
 
 module.exports = async (req, res) => {
     const { id } = req.query;
@@ -68,6 +69,9 @@ module.exports = async (req, res) => {
             });
             await relationsMail.save();
         }
+
+        const emailInfo = await sendEmail(enroll, "accept");
+        console.log(emailInfo);
 
         res.json({
             status: "success",

@@ -59,7 +59,7 @@ const enrollSchema = mongoose.Schema({
     },
     funFact: {
         type: String,
-        required: true,
+        required: false,
     },
     scoreReport: {
         type: String,

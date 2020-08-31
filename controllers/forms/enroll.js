@@ -1,6 +1,6 @@
 const { nanoid } = require("nanoid");
 const { validateEnroll } = require("../../validation/validation.js");
-const sendEnrollEmail = require("../../nodemailer/enrollMail.js");
+const sendEmail = require("../../nodemailer/sendEmail.js");
 const Enrollment = require("../../models/enrollments/enrollment.js");
 const moment = require("moment");
 const formidable = require("formidable");
@@ -32,6 +32,10 @@ module.exports = async (req, res) => {
             relationsMails,
         } = fields;
 
+        if (type === "tutor" && !files.scoreReport) {
+            return res.status(400).json({ status: "failure", msg: "please upload your score report" });
+        }
+
         //UPLOAD FILE HERE
 
         let enrollForm = {
@@ -61,8 +65,10 @@ module.exports = async (req, res) => {
             try {
                 //validating the received object
                 const { error } = validateEnroll(fields);
-                if (error) return res.status(400).json(error.details[0].message);
-
+                if (error) {
+                    console.log(error.details[0].message);
+                    return res.status(400).json({ status: "failure", msg: error.details[0].message });
+                }
                 //!    UNCOMMENT THIS
                 // const student = await Enrollment.findOne({ email }).lean();
                 // if (student)
@@ -73,7 +79,7 @@ module.exports = async (req, res) => {
                 await enrollment.save();
 
                 //!  UNCOMMENT THIS
-                const emailInfo = await sendEnrollEmail(enrollForm);
+                const emailInfo = await sendEmail(enrollForm, "enroll");
                 console.log(!!emailInfo ? "email sent" : "email not sent");
 
                 res.json({

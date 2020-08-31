@@ -1,16 +1,6 @@
 const nodemailer = require("nodemailer");
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
 
-module.exports = async (enroll) => {
-    const myOAuth2Client = new OAuth2(process.env.CLIENT_ID, process.env.CLIENT_SECRET);
-
-    myOAuth2Client.setCredentials({
-        refresh_token: process.env.REFRESH_TOKEN,
-    });
-
-    const myAccessToken = myOAuth2Client.getAccessToken();
-
+module.exports = async (enroll, accessToken) => {
     const {
         id,
         type,
@@ -39,11 +29,9 @@ module.exports = async (enroll) => {
             clientId: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
             refreshToken: process.env.REFRESH_TOKEN,
-            accessToken: myAccessToken, //access token variable we defined earlier
+            accessToken, //access token variable we defined earlier
         },
     });
-
-    console.log(transporter);
 
     const emailHtml = `
     <h3>new enroll request</h3>
