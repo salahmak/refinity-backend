@@ -69,10 +69,15 @@ module.exports = async (req, res) => {
                     console.log(error.details[0].message);
                     return res.status(400).json({ status: "failure", msg: error.details[0].message });
                 }
-                //!    UNCOMMENT THIS
-                // const student = await Enrollment.findOne({ email }).lean();
-                // if (student)
-                //     return res.status(400).json({ status: "failure", msg: "student already exists" });
+
+                const student = await Enrollment.findOne({ email }).lean();
+                if (student)
+                    return res
+                        .status(400)
+                        .json({
+                            status: "failure",
+                            msg: "An enrollment with the provided email aleady exists",
+                        });
 
                 //storing the enrollment in the enrollments collection
                 const enrollment = new Enrollment(enrollForm);
@@ -86,7 +91,6 @@ module.exports = async (req, res) => {
                     status: "success",
                     msg:
                         "Your enrollment has been submitted successfully. You will be notified through email regarding the status of your enrollment within 24-72 business hours",
-                    enrollForm,
                 });
             } catch (err) {
                 console.log(err);

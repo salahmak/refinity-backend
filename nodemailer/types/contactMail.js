@@ -24,7 +24,7 @@ module.exports = async (message) => {
 
     const mailOptions = {
         from: process.env.CONTACT_MAIL,
-        to: process.env.ADMIN_MAIL,
+        to: process.env.CONTACT_MAIL,
         subject: "Contact Request",
         html: emailHtml,
     };

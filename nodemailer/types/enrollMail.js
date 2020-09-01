@@ -56,7 +56,7 @@ module.exports = async (enroll) => {
 
     const mailOptions = {
         from: process.env.ENROLL_MAIL,
-        to: process.env.ADMIN_MAIL,
+        to: process.env.ENROLL_MAIL,
         subject: "Enrollment request",
         html: emailHtml,
     };
