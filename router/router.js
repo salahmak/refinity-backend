@@ -14,5 +14,8 @@ const limiter = rateLimit({
 router.use("/auth/", auth);
 router.use("/forms/", limiter, forms);
 router.use("/panel/", panel);
+router.get("/", (req, res)=> {
+    res.send("works");
+});
 
 module.exports = router;
