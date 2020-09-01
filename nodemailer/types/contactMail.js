@@ -1,19 +1,19 @@
 const nodemailer = require("nodemailer");
 
-module.exports = async (message, accessToken) => {
+module.exports = async (message, transporter) => {
     const { id, name, email, body } = message;
 
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            type: "OAuth2",
-            user: process.env.EMAIL,
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET,
-            refreshToken: process.env.REFRESH_TOKEN,
-            accessToken,
-        },
-    });
+    // const transporter = nodemailer.createTransport({
+    //     service: "gmail",
+    //     auth: {
+    //         type: "OAuth2",
+    //         user: process.env.EMAIL,
+    //         clientId: process.env.CLIENT_ID,
+    //         clientSecret: process.env.CLIENT_SECRET,
+    //         refreshToken: process.env.REFRESH_TOKEN,
+    //         accessToken,
+    //     },
+    // });
 
     const emailHtml = `
     <h3>New contact request</h3>
@@ -26,7 +26,7 @@ module.exports = async (message, accessToken) => {
     `;
 
     const mailOptions = {
-        from: process.env.EMAIL,
+        from: "enrollments@refinityedu.org",
         to: process.env.ADMIN_MAIL,
         subject: "Contact",
         html: emailHtml,
@@ -34,6 +34,7 @@ module.exports = async (message, accessToken) => {
 
     try {
         const info = await transporter.sendMail(mailOptions);
+        console.log("info>>", info);
         return info;
     } catch (err) {
         console.log(err.stack);

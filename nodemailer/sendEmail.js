@@ -14,23 +14,34 @@ module.exports = async (body, type) => {
 
     const myAccessToken = myOAuth2Client.getAccessToken();
 
+    // const transporter = nodemailer.createTransport({
+    //     service: "gmail",
+    //     auth: {
+    //         type: "OAuth2",
+    //         user: process.env.EMAIL, //your gmail account you used to set the project up in google cloud console"
+    //         clientId: process.env.CLIENT_ID,
+    //         clientSecret: process.env.CLIENT_SECRET,
+    //         refreshToken: process.env.REFRESH_TOKEN,
+    //         accessToken: myAccessToken, //access token variable we defined earlier
+    //     },
+    // });
+
     const transporter = nodemailer.createTransport({
-        service: "gmail",
+        host: "mail.refinityedu.org",
+        port: 465,
         auth: {
-            type: "OAuth2",
-            user: process.env.EMAIL, //your gmail account you used to set the project up in google cloud console"
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET,
-            refreshToken: process.env.REFRESH_TOKEN,
-            accessToken: myAccessToken, //access token variable we defined earlier
+            user: "enrollments@refinityedu.org",
+            pass: "(OtsJ6S3_Ih)",
         },
     });
 
+    console.log("transporter >>", transporter);
+
     if (type === "enroll") {
-        return await sendEnrollEmail(body, myAccessToken);
+        return await sendEnrollEmail(body, transporter);
     } else if (type === "contact") {
-        return await sendContactEmail(body, myAccessToken);
+        return await sendContactEmail(body, transporter);
     } else if (type === "accept") {
-        return await sendAcceptEmail(body, myAccessToken);
+        return await sendAcceptEmail(body, transporter);
     }
 };
