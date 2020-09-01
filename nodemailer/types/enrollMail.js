@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-module.exports = async (enroll, accessToken) => {
+module.exports = async (enroll) => {
     const {
         id,
         type,
@@ -22,14 +22,11 @@ module.exports = async (enroll, accessToken) => {
     } = enroll;
 
     const transporter = nodemailer.createTransport({
-        service: "gmail",
+        host: "mail.refinityedu.org",
+        port: 465,
         auth: {
-            type: "OAuth2",
-            user: process.env.EMAIL, //your gmail account you used to set the project up in google cloud console"
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET,
-            refreshToken: process.env.REFRESH_TOKEN,
-            accessToken, //access token variable we defined earlier
+            user: process.env.ENROLL_MAIL,
+            pass: process.env.ENROLL_PASS,
         },
     });
 
@@ -58,7 +55,7 @@ module.exports = async (enroll, accessToken) => {
     `;
 
     const mailOptions = {
-        from: process.env.EMAIL,
+        from: process.env.ENROLL_MAIL,
         to: process.env.ADMIN_MAIL,
         subject: "Enrollment request",
         html: emailHtml,

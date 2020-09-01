@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
         await contact.save();
 
         const emailInfo = await sendEmail(message, "contact");
-        console.log(emailInfo);
+        console.log(!!emailInfo ? "email sent" : "email not sent");
 
         res.json({
             status: "success",

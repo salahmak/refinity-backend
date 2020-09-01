@@ -1,17 +1,14 @@
 const nodemailer = require("nodemailer");
 
-module.exports = async (enroll, accessToken) => {
+module.exports = async (enroll) => {
     const { name, email, grade, type } = enroll;
 
     const transporter = nodemailer.createTransport({
-        service: "gmail",
+        host: "mail.refinityedu.org",
+        port: 465,
         auth: {
-            type: "OAuth2",
-            user: process.env.EMAIL,
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET,
-            refreshToken: process.env.REFRESH_TOKEN,
-            accessToken,
+            user: process.env.ENROLL_MAIL,
+            pass: process.env.ENROLL_PASS,
         },
     });
 
@@ -31,7 +28,7 @@ Refinity
     `;
 
     const mailOptions = {
-        from: process.env.EMAIL,
+        from: process.env.ENROLL_MAIL,
         to: email,
         subject: "Enrollment request update",
         html: emailHtml,

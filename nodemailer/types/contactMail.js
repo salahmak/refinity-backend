@@ -1,19 +1,16 @@
 const nodemailer = require("nodemailer");
 
-module.exports = async (message, transporter) => {
+module.exports = async (message) => {
     const { id, name, email, body } = message;
 
-    // const transporter = nodemailer.createTransport({
-    //     service: "gmail",
-    //     auth: {
-    //         type: "OAuth2",
-    //         user: process.env.EMAIL,
-    //         clientId: process.env.CLIENT_ID,
-    //         clientSecret: process.env.CLIENT_SECRET,
-    //         refreshToken: process.env.REFRESH_TOKEN,
-    //         accessToken,
-    //     },
-    // });
+    const transporter = nodemailer.createTransport({
+        host: "mail.refinityedu.org",
+        port: 465,
+        auth: {
+            user: process.env.CONTACT_MAIL,
+            pass: process.env.CONTACT_PASS,
+        },
+    });
 
     const emailHtml = `
     <h3>New contact request</h3>
@@ -26,15 +23,14 @@ module.exports = async (message, transporter) => {
     `;
 
     const mailOptions = {
-        from: "enrollments@refinityedu.org",
+        from: process.env.CONTACT_MAIL,
         to: process.env.ADMIN_MAIL,
-        subject: "Contact",
+        subject: "Contact Request",
         html: emailHtml,
     };
 
     try {
         const info = await transporter.sendMail(mailOptions);
-        console.log("info>>", info);
         return info;
     } catch (err) {
         console.log(err.stack);
