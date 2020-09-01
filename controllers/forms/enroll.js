@@ -84,7 +84,8 @@ module.exports = async (req, res) => {
 
                 res.json({
                     status: "success",
-                    msg: "your enrollment has been successfully submitted",
+                    msg:
+                        "Your enrollment has been submitted successfully. You will be notified through email regarding the status of your enrollment within 24-72 business hours",
                     enrollForm,
                 });
             } catch (err) {

@@ -25,7 +25,8 @@ module.exports = async (req, res) => {
 
         res.json({
             status: "success",
-            msg: "your message has been sucessfully submited to the admins",
+            msg:
+                "Thank you for contacting us! We will do our best to respond within 24-72 business hours",
         });
     } catch (err) {
         console.log(err);
