@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res) => {
+    if (process.env.REGISTER === "false") return res.status(400).json({ msg: "Cannot register now" });
     const { username, email, password } = req.body;
     const adminData = {
         id: nanoid(),
