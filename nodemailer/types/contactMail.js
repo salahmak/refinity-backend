@@ -4,7 +4,7 @@ module.exports = async (message) => {
     const { id, name, email, body } = message;
 
     const transporter = nodemailer.createTransport({
-        host: "mail.refinityedu.org",
+        host: "",
         port: 465,
         auth: {
             user: process.env.CONTACT_MAIL,

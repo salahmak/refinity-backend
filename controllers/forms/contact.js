@@ -1,6 +1,6 @@
 const { nanoid } = require("nanoid");
 const { validateContact } = require("../../validation/validation.js");
-const sendEmail = require("../../nodemailer/sendEmail.js");
+//const sendEmail = require("../../nodemailer/sendEmail.js");
 const Contact = require("../../models/contact/contactForm.js");
 
 module.exports = async (req, res) => {
@@ -20,8 +20,8 @@ module.exports = async (req, res) => {
         const contact = new Contact(message);
         await contact.save();
 
-        const emailInfo = await sendEmail(message, "contact");
-        console.log(!!emailInfo ? "email sent" : "email not sent");
+        // const emailInfo = await sendEmail(message, "contact");
+        // console.log(!!emailInfo ? "email sent" : "email not sent");
 
         res.json({
             status: "success",

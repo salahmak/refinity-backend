@@ -22,7 +22,7 @@ module.exports = async (enroll) => {
     } = enroll;
 
     const transporter = nodemailer.createTransport({
-        host: "mail.refinityedu.org",
+        host: "",
         port: 465,
         auth: {
             user: process.env.ENROLL_MAIL,

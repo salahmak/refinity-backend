@@ -1,6 +1,6 @@
 const { nanoid } = require("nanoid");
 const { validateEnroll } = require("../../validation/validation.js");
-const sendEmail = require("../../nodemailer/sendEmail.js");
+//const sendEmail = require("../../nodemailer/sendEmail.js");
 const Enrollment = require("../../models/enrollments/enrollment.js");
 const moment = require("moment");
 const formidable = require("formidable");
@@ -84,8 +84,8 @@ module.exports = async (req, res) => {
                 await enrollment.save();
 
                 //!  UNCOMMENT THIS
-                const emailInfo = await sendEmail(enrollForm, "enroll");
-                console.log(!!emailInfo ? "email sent" : "email not sent");
+                // const emailInfo = await sendEmail(enrollForm, "enroll");
+                // console.log(!!emailInfo ? "email sent" : "email not sent");
 
                 res.json({
                     status: "success",
