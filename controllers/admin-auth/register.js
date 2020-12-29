@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
 
     try {
         const adminExists = await Admin.findOne({ email: email.toLowerCase() }).lean();
-        if (adminExists) return res.json({ msg: "admin already exists" });
+        if (adminExists) return res.status(400).json({ msg: "Admin already exists" });
 
         const hash = await bcrypt.hash(password, 10);
 
